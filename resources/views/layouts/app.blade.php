@@ -28,22 +28,25 @@
     
     <!-- Critical Mobile Menu Styles - Inline to ensure they load first -->
     <style>
-      /* Force mobile toggle visibility on mobile - inline to override everything */
+      /* Force mobile toggle visibility on mobile - ALWAYS VISIBLE */
       @media (max-width: 992px) {
         .mobile-nav-toggle,
         i.mobile-nav-toggle,
-        .bi.mobile-nav-toggle {
+        .bi.mobile-nav-toggle,
+        [data-mobile-toggle="true"] {
           display: block !important;
           visibility: visible !important;
           opacity: 1 !important;
           position: relative !important;
-          z-index: 1002 !important;
+          z-index: 10002 !important;
           pointer-events: auto !important;
           font-size: 32px !important;
           color: #fff !important;
           cursor: pointer !important;
           padding: 8px 12px !important;
           line-height: 1 !important;
+          order: 2 !important;
+          margin-left: auto !important;
         }
         
         .mobile-nav-toggle::before,
@@ -66,70 +69,6 @@
       }
     </style>
     
-    <!-- Immediate Mobile Menu Visibility Script - Runs before page load -->
-    <script>
-      // Force mobile menu visibility immediately - runs before DOM is ready
-      (function() {
-        function showMobileToggle() {
-          if (window.innerWidth <= 992) {
-            const toggle = document.querySelector('.mobile-nav-toggle');
-            if (toggle) {
-              // Force visibility with inline styles
-              toggle.style.setProperty('display', 'block', 'important');
-              toggle.style.setProperty('visibility', 'visible', 'important');
-              toggle.style.setProperty('opacity', '1', 'important');
-              toggle.style.setProperty('position', 'relative', 'important');
-              toggle.style.setProperty('z-index', '1002', 'important');
-              toggle.style.setProperty('font-size', '32px', 'important');
-              toggle.style.setProperty('color', '#fff', 'important');
-              toggle.style.setProperty('cursor', 'pointer', 'important');
-              toggle.style.setProperty('padding', '8px 12px', 'important');
-              toggle.style.setProperty('line-height', '1', 'important');
-              toggle.style.setProperty('pointer-events', 'auto', 'important');
-              toggle.style.setProperty('order', '2', 'important');
-              toggle.style.setProperty('margin-left', 'auto', 'important');
-              
-              // Ensure it has the hamburger icon
-              if (!toggle.querySelector('::before')) {
-                const style = document.createElement('style');
-                style.textContent = '.mobile-nav-toggle::before { content: "☰" !important; font-size: 32px !important; display: inline-block !important; color: #fff !important; font-family: Arial, sans-serif !important; }';
-                document.head.appendChild(style);
-              }
-            }
-          } else {
-            const toggle = document.querySelector('.mobile-nav-toggle');
-            if (toggle) {
-              toggle.style.display = 'none';
-            }
-          }
-        }
-        
-        // Run immediately
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', showMobileToggle);
-        } else {
-          showMobileToggle();
-        }
-        
-        // Also run on window load
-        window.addEventListener('load', showMobileToggle);
-        
-        // Run on resize
-        window.addEventListener('resize', showMobileToggle);
-        
-        // Run immediately multiple times (in case script runs before header)
-        setTimeout(showMobileToggle, 0);
-        setTimeout(showMobileToggle, 10);
-        setTimeout(showMobileToggle, 50);
-        setTimeout(showMobileToggle, 100);
-        setTimeout(showMobileToggle, 200);
-        setTimeout(showMobileToggle, 500);
-      })();
-    </script>
-
-    @stack('styles')
-</head>
-<body style="overflow-x: hidden;">
     <!-- Immediate Mobile Toggle Visibility - Runs before header loads -->
     <script>
       (function() {
@@ -137,7 +76,7 @@
         const observer = new MutationObserver(function() {
           const toggle = document.querySelector('.mobile-nav-toggle, [data-mobile-toggle="true"]');
           if (toggle && window.innerWidth <= 992) {
-            toggle.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; position: relative !important; z-index: 1002 !important; font-size: 32px !important; color: #fff !important; cursor: pointer !important; padding: 8px 12px !important; line-height: 1 !important; pointer-events: auto !important; order: 2 !important; margin-left: auto !important;';
+            toggle.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; position: relative !important; z-index: 10002 !important; font-size: 32px !important; color: #fff !important; cursor: pointer !important; padding: 8px 12px !important; line-height: 1 !important; pointer-events: auto !important; order: 2 !important; margin-left: auto !important;';
           }
         });
         
@@ -151,14 +90,18 @@
         }
       })();
     </script>
+
+    @stack('styles')
+</head>
+<body style="overflow-x: hidden;">
     @include('partials.header')
     
-    <!-- Mobile Menu - Simple Inline Solution -->
+    <!-- Mobile Menu - Clean Simple Solution -->
     <script>
       (function() {
         'use strict';
         
-        function setupMobileMenu() {
+        function initMobileMenu() {
           const toggle = document.querySelector('.mobile-nav-toggle');
           const navbar = document.querySelector('#navbar');
           
@@ -166,124 +109,99 @@
             return false;
           }
           
-          // Remove any existing listeners
-          const newToggle = toggle.cloneNode(true);
-          toggle.parentNode.replaceChild(newToggle, toggle);
-          
-          // Make sure toggle is visible and clickable - FORCE IT
-          function makeToggleVisible() {
+          // Force toggle visibility
+          function showToggle() {
             if (window.innerWidth <= 992) {
-              newToggle.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; z-index: 10002 !important; position: relative !important; font-size: 32px !important; color: #fff !important; padding: 8px 12px !important;';
+              toggle.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; z-index: 10002 !important; position: relative !important;';
             }
           }
-          makeToggleVisible();
-          setTimeout(makeToggleVisible, 50);
-          setTimeout(makeToggleVisible, 200);
-          window.addEventListener('resize', makeToggleVisible);
+          showToggle();
+          setTimeout(showToggle, 50);
+          setTimeout(showToggle, 200);
+          window.addEventListener('resize', showToggle);
           
-          // Toggle menu on click
-          newToggle.addEventListener('click', function(e) {
+          // Toggle menu open/close
+          toggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
             if (navbar.classList.contains('navbar-mobile')) {
-              // Close
               navbar.classList.remove('navbar-mobile');
-              newToggle.classList.remove('bi-x');
-              newToggle.classList.add('bi-list');
+              toggle.classList.remove('bi-x');
+              toggle.classList.add('bi-list');
               document.body.classList.remove('navbar-open');
               document.body.style.overflow = '';
             } else {
-              // Open
               navbar.classList.add('navbar-mobile');
-              newToggle.classList.remove('bi-list');
-              newToggle.classList.add('bi-x');
+              toggle.classList.remove('bi-list');
+              toggle.classList.add('bi-x');
               document.body.classList.add('navbar-open');
               document.body.style.overflow = 'hidden';
-              
-              // Re-attach dropdown handlers when menu opens
-              setTimeout(attachDropdownHandlers, 50);
             }
           });
           
-          // Handle dropdown clicks - Direct handlers for reliability
-          function attachDropdownHandlers() {
-            const dropdownLinks = navbar.querySelectorAll('.dropdown > a');
-            dropdownLinks.forEach(function(link) {
-              // Remove old handler by cloning
-              const newLink = link.cloneNode(true);
-              link.parentNode.replaceChild(newLink, link);
+          // Handle dropdown clicks - Simple and direct
+          navbar.addEventListener('click', function(e) {
+            if (window.innerWidth <= 992 && navbar.classList.contains('navbar-mobile')) {
+              let clicked = e.target;
               
-              // Add direct click handler
-              newLink.addEventListener('click', function(e) {
-                if (window.innerWidth <= 992 && navbar.classList.contains('navbar-mobile')) {
+              // Get the link if clicking on span/icon
+              if (clicked.tagName === 'SPAN' || clicked.tagName === 'I') {
+                clicked = clicked.closest('a');
+              }
+              
+              // Check if it's a dropdown toggle
+              if (clicked && clicked.tagName === 'A' && clicked.closest('.dropdown')) {
+                const dropdown = clicked.closest('.dropdown');
+                
+                // Check if this is the dropdown's direct child link
+                if (clicked.parentElement === dropdown) {
                   e.preventDefault();
                   e.stopPropagation();
                   
-                  const dropdown = this.closest('.dropdown');
-                  if (dropdown) {
-                    // Toggle this dropdown
-                    dropdown.classList.toggle('active');
-                    
-                    // Close other dropdowns at same level
-                    const parent = dropdown.parentElement;
-                    if (parent) {
-                      parent.querySelectorAll('.dropdown').forEach(function(d) {
-                        if (d !== dropdown) {
-                          d.classList.remove('active');
-                        }
-                      });
-                    }
+                  // Toggle dropdown
+                  dropdown.classList.toggle('active');
+                  
+                  // Close siblings
+                  const parent = dropdown.parentElement;
+                  if (parent) {
+                    Array.from(parent.children).forEach(function(child) {
+                      if (child !== dropdown && child.classList.contains('dropdown')) {
+                        child.classList.remove('active');
+                      }
+                    });
                   }
                   
                   return false;
                 }
-              }, true);
-            });
-            
-            // Handle nested dropdowns
-            const nestedLinks = navbar.querySelectorAll('.dropdown .dropdown > a');
-            nestedLinks.forEach(function(link) {
-              const newLink = link.cloneNode(true);
-              link.parentNode.replaceChild(newLink, link);
-              
-              newLink.addEventListener('click', function(e) {
-                if (window.innerWidth <= 992 && navbar.classList.contains('navbar-mobile')) {
+                
+                // Check nested dropdown
+                const nested = clicked.closest('.dropdown .dropdown');
+                if (nested && clicked.parentElement === nested) {
                   e.preventDefault();
                   e.stopPropagation();
-                  
-                  const nestedDropdown = this.closest('.dropdown');
-                  if (nestedDropdown) {
-                    nestedDropdown.classList.toggle('active');
-                  }
-                  
+                  nested.classList.toggle('active');
                   return false;
                 }
-              }, true);
-            });
-          }
-          
-          // Attach handlers initially
-          attachDropdownHandlers();
+              }
+            }
+          });
           
           return true;
         }
         
-        // Run immediately
+        // Initialize
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', setupMobileMenu);
+          document.addEventListener('DOMContentLoaded', initMobileMenu);
         } else {
-          setupMobileMenu();
+          initMobileMenu();
         }
         
-        // Run multiple times to ensure it works
-        setTimeout(setupMobileMenu, 50);
-        setTimeout(setupMobileMenu, 200);
-        setTimeout(setupMobileMenu, 500);
-        window.addEventListener('load', setupMobileMenu);
+        setTimeout(initMobileMenu, 100);
+        setTimeout(initMobileMenu, 500);
+        window.addEventListener('load', initMobileMenu);
       })();
     </script>
-    
 
     <main id="main" style="min-height: 100vh;">
         @yield('content')
@@ -340,9 +258,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}" async defer></script>
-    <!-- fix-menu.js removed - using mobile-menu-simple.js instead -->
 
     @stack('scripts')
 </body>
 </html>
-

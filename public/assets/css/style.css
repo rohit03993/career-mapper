@@ -63,6 +63,12 @@ a {
   #header.scrolled {
     opacity: 0.9;
   }
+  
+  /* Ensure hamburger is always visible even when header is scrolled */
+  #header.scrolled .mobile-nav-toggle {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 }
 
 #header .container {
@@ -96,19 +102,19 @@ a {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    order: 2;
-    margin-left: auto;
+    order: 2 !important;
+    margin-left: auto !important;
     position: relative !important;
-    z-index: 1002 !important;
+    z-index: 10002 !important;
     font-size: 32px !important;
     color: #fff !important;
     cursor: pointer !important;
     padding: 8px 12px !important;
     line-height: 1 !important;
     pointer-events: auto !important;
-    min-width: 40px;
-    min-height: 40px;
-    text-align: center;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    text-align: center !important;
   }
   
   .mobile-nav-toggle::before {
@@ -2280,8 +2286,8 @@ section {
     background: rgba(0,0,0,0.3);
     margin: 0;
     padding: 0;
-    max-height: 0;
-    overflow: hidden;
+    max-height: 0 !important;
+    overflow: hidden !important;
     transition: max-height 0.3s ease, padding 0.3s ease !important;
     display: block !important;
     pointer-events: none !important;
@@ -2293,6 +2299,9 @@ section {
     padding: 10px 0 !important;
     overflow: visible !important;
     pointer-events: auto !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* Nested dropdowns */
