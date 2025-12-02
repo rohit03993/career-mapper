@@ -100,17 +100,29 @@ a {
     margin-left: auto;
     position: relative !important;
     z-index: 1002 !important;
+    font-size: 32px !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    padding: 8px 12px !important;
+    line-height: 1 !important;
+    pointer-events: auto !important;
+    min-width: 40px;
+    min-height: 40px;
+    text-align: center;
+  }
+  
+  .mobile-nav-toggle::before {
+    content: '☰' !important;
+    font-size: 32px !important;
+    display: inline-block !important;
+    color: #fff !important;
+    font-family: Arial, sans-serif !important;
+    line-height: 1 !important;
   }
   
   /* Fallback if Bootstrap Icons don't load */
   .mobile-nav-toggle-fallback {
-    display: inline-block;
-    font-size: 32px;
-    color: var(--text-light);
-    cursor: pointer;
-    order: 2;
-    margin-left: auto;
-    padding: 8px 12px;
+    display: none !important;
   }
 }
 

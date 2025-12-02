@@ -39,13 +39,118 @@
           position: relative !important;
           z-index: 1002 !important;
           pointer-events: auto !important;
+          font-size: 32px !important;
+          color: #fff !important;
+          cursor: pointer !important;
+          padding: 8px 12px !important;
+          line-height: 1 !important;
+        }
+        
+        .mobile-nav-toggle::before,
+        [data-mobile-toggle="true"]::before {
+          content: '☰' !important;
+          font-size: 32px !important;
+          display: inline-block !important;
+          color: #fff !important;
+          font-family: Arial, sans-serif !important;
+          line-height: 1 !important;
+        }
+      }
+      
+      /* Hide on desktop */
+      @media (min-width: 993px) {
+        .mobile-nav-toggle,
+        [data-mobile-toggle="true"] {
+          display: none !important;
         }
       }
     </style>
+    
+    <!-- Immediate Mobile Menu Visibility Script - Runs before page load -->
+    <script>
+      // Force mobile menu visibility immediately - runs before DOM is ready
+      (function() {
+        function showMobileToggle() {
+          if (window.innerWidth <= 992) {
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            if (toggle) {
+              // Force visibility with inline styles
+              toggle.style.setProperty('display', 'block', 'important');
+              toggle.style.setProperty('visibility', 'visible', 'important');
+              toggle.style.setProperty('opacity', '1', 'important');
+              toggle.style.setProperty('position', 'relative', 'important');
+              toggle.style.setProperty('z-index', '1002', 'important');
+              toggle.style.setProperty('font-size', '32px', 'important');
+              toggle.style.setProperty('color', '#fff', 'important');
+              toggle.style.setProperty('cursor', 'pointer', 'important');
+              toggle.style.setProperty('padding', '8px 12px', 'important');
+              toggle.style.setProperty('line-height', '1', 'important');
+              toggle.style.setProperty('pointer-events', 'auto', 'important');
+              toggle.style.setProperty('order', '2', 'important');
+              toggle.style.setProperty('margin-left', 'auto', 'important');
+              
+              // Ensure it has the hamburger icon
+              if (!toggle.querySelector('::before')) {
+                const style = document.createElement('style');
+                style.textContent = '.mobile-nav-toggle::before { content: "☰" !important; font-size: 32px !important; display: inline-block !important; color: #fff !important; font-family: Arial, sans-serif !important; }';
+                document.head.appendChild(style);
+              }
+            }
+          } else {
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            if (toggle) {
+              toggle.style.display = 'none';
+            }
+          }
+        }
+        
+        // Run immediately
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', showMobileToggle);
+        } else {
+          showMobileToggle();
+        }
+        
+        // Also run on window load
+        window.addEventListener('load', showMobileToggle);
+        
+        // Run on resize
+        window.addEventListener('resize', showMobileToggle);
+        
+        // Run immediately multiple times (in case script runs before header)
+        setTimeout(showMobileToggle, 0);
+        setTimeout(showMobileToggle, 10);
+        setTimeout(showMobileToggle, 50);
+        setTimeout(showMobileToggle, 100);
+        setTimeout(showMobileToggle, 200);
+        setTimeout(showMobileToggle, 500);
+      })();
+    </script>
 
     @stack('styles')
 </head>
 <body style="overflow-x: hidden;">
+    <!-- Immediate Mobile Toggle Visibility - Runs before header loads -->
+    <script>
+      (function() {
+        // Create observer to watch for mobile toggle element
+        const observer = new MutationObserver(function() {
+          const toggle = document.querySelector('.mobile-nav-toggle, [data-mobile-toggle="true"]');
+          if (toggle && window.innerWidth <= 992) {
+            toggle.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; position: relative !important; z-index: 1002 !important; font-size: 32px !important; color: #fff !important; cursor: pointer !important; padding: 8px 12px !important; line-height: 1 !important; pointer-events: auto !important; order: 2 !important; margin-left: auto !important;';
+          }
+        });
+        
+        // Start observing
+        if (document.body) {
+          observer.observe(document.body, { childList: true, subtree: true });
+        } else {
+          document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { childList: true, subtree: true });
+          });
+        }
+      })();
+    </script>
     @include('partials.header')
     
     <!-- Mobile Menu Script - Runs after header is loaded -->
