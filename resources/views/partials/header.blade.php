@@ -66,7 +66,7 @@
                 <li><a class="nav-link scrollto" href="{{ route('home') }}#contact">Contact</a></li>
             </ul>
         </nav>
-        <i class="bi bi-list mobile-nav-toggle" aria-label="Menu" data-mobile-toggle="true"></i>
+        <i class="bi bi-list mobile-nav-toggle" aria-label="Menu" data-mobile-toggle="true" style="display: none;"></i>
         <span class="mobile-nav-toggle-fallback" style="display: none;">☰</span>
         @php
             $contactInfo = \App\Models\ContactInfo::where('is_active', true)->first();
