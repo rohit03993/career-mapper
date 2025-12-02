@@ -24,73 +24,23 @@
        */
       const navbar = document.querySelector('#navbar');
       if (navbar) {
-        // Handle dropdown toggles in mobile menu
-        const dropdowns = navbar.querySelectorAll('.dropdown > a');
-        dropdowns.forEach(function(dropdownLink) {
-          // Remove any existing listeners by cloning
-          const newLink = dropdownLink.cloneNode(true);
-          dropdownLink.parentNode.replaceChild(newLink, dropdownLink);
-          
-          newLink.addEventListener('click', function(e) {
-            const isMobile = window.innerWidth <= 992;
-            const dropdown = this.parentElement;
-            
-            if (isMobile) {
-              // On mobile: toggle dropdown
-              e.preventDefault();
-              e.stopPropagation();
-              
-              // Check if this is a nested dropdown
-              const isNested = dropdown.parentElement.closest('.dropdown') !== null;
-              
-              if (!isNested) {
-                // Only close other parent dropdowns (not nested ones)
-                navbar.querySelectorAll('.dropdown').forEach(function(d) {
-                  const dIsNested = d.parentElement.closest('.dropdown') !== null;
-                  if (d !== dropdown && !dIsNested) {
-                    d.classList.remove('active');
-                    // Close nested dropdowns inside closed parent
-                    d.querySelectorAll('.dropdown').forEach(function(nd) {
-                      nd.classList.remove('active');
-                    });
-                  }
-                });
-              } else {
-                // For nested dropdowns, only close other nested dropdowns at the same level
-                const parentDropdown = dropdown.parentElement.closest('.dropdown');
-                if (parentDropdown) {
-                  parentDropdown.querySelectorAll('.dropdown').forEach(function(d) {
-                    if (d !== dropdown) {
-                      d.classList.remove('active');
-                    }
-                  });
-                }
+        // Handle dropdown toggles - ONLY on desktop, mobile handled by inline script
+        // Don't interfere with mobile menu handlers
+        if (window.innerWidth > 992) {
+          const dropdowns = navbar.querySelectorAll('.dropdown > a');
+          dropdowns.forEach(function(dropdownLink) {
+            // Only add hover handlers for desktop
+            dropdownLink.addEventListener('mouseenter', function() {
+              if (window.innerWidth > 992) {
+                const dropdown = this.parentElement;
+                dropdown.classList.add('active');
               }
-              
-              // Toggle current dropdown
-              dropdown.classList.toggle('active');
-            } else {
-              // On desktop: allow default behavior (hover)
-              // Don't prevent default
-            }
+            });
           });
-        });
+        }
         
-        // Handle nested dropdowns (like "Other Test" inside "All Test")
-        const nestedDropdowns = navbar.querySelectorAll('.dropdown .dropdown > a');
-        nestedDropdowns.forEach(function(nestedLink) {
-          const newNestedLink = nestedLink.cloneNode(true);
-          nestedLink.parentNode.replaceChild(newNestedLink, nestedLink);
-          
-          newNestedLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 992) {
-              e.preventDefault();
-              e.stopPropagation();
-              const nestedDropdown = this.parentElement;
-              nestedDropdown.classList.toggle('active');
-            }
-          });
-        });
+        // Nested dropdowns handled by inline mobile menu script
+        // No need to duplicate handlers here
         
         // On desktop, ensure dropdowns stay open when clicking inside them
         navbar.querySelectorAll('.dropdown > ul').forEach(function(dropdownMenu) {
