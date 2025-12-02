@@ -232,6 +232,65 @@
             }
           }, 500);
           
+          // Function to attach dropdown handlers
+          function attachDropdownHandlers() {
+            // Remove old handlers by cloning
+            const dropdownLinks = navbar.querySelectorAll('.dropdown > a');
+            dropdownLinks.forEach(function(dropdownLink) {
+              // Clone to remove old listeners
+              const newLink = dropdownLink.cloneNode(true);
+              dropdownLink.parentNode.replaceChild(newLink, dropdownLink);
+              
+              // Add click handler
+              newLink.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const dropdown = this.parentElement;
+                  
+                  // Check if this is a nested dropdown
+                  const isNested = dropdown.parentElement.closest('.dropdown') !== null;
+                  
+                  if (!isNested) {
+                    // Only close other parent dropdowns (not nested ones)
+                    navbar.querySelectorAll('.dropdown').forEach(function(d) {
+                      const dIsNested = d.parentElement.closest('.dropdown') !== null;
+                      if (d !== dropdown && !dIsNested) {
+                        d.classList.remove('active');
+                        // Close nested dropdowns inside closed parent
+                        d.querySelectorAll('.dropdown').forEach(function(nd) {
+                          nd.classList.remove('active');
+                        });
+                      }
+                    });
+                  }
+                  
+                  // Toggle current dropdown
+                  dropdown.classList.toggle('active');
+                }
+              });
+            });
+            
+            // Handle nested dropdowns
+            const nestedDropdowns = navbar.querySelectorAll('.dropdown .dropdown > a');
+            nestedDropdowns.forEach(function(nestedLink) {
+              const newNestedLink = nestedLink.cloneNode(true);
+              nestedLink.parentNode.replaceChild(newNestedLink, nestedLink);
+              
+              newNestedLink.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const nestedDropdown = this.parentElement;
+                  nestedDropdown.classList.toggle('active');
+                }
+              });
+            });
+          }
+          
+          // Attach handlers initially
+          attachDropdownHandlers();
+          
           toggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -255,12 +314,89 @@
               toggle.classList.add('bi-x');
               document.body.classList.add('navbar-open');
               document.body.style.overflow = 'hidden';
+              
+              // Re-attach dropdown handlers when menu opens
+              setTimeout(attachDropdownHandlers, 100);
             }
           });
           
-          // Close on outside click
+          // Use event delegation for dropdown clicks (works even if elements are added dynamically)
+          navbar.addEventListener('click', function(e) {
+            if (window.innerWidth <= 992 && navbar.classList.contains('navbar-mobile')) {
+              const clickedElement = e.target;
+              
+              // Check for nested dropdowns FIRST (before parent dropdowns)
+              const nestedLink = clickedElement.closest('.dropdown .dropdown > a');
+              if (nestedLink) {
+                e.preventDefault();
+                e.stopPropagation();
+                const nestedDropdown = nestedLink.parentElement;
+                
+                // Close other nested dropdowns at the same level, but keep parent open
+                const parentDropdown = nestedDropdown.parentElement.closest('.dropdown');
+                if (parentDropdown) {
+                  parentDropdown.querySelectorAll('.dropdown').forEach(function(d) {
+                    if (d !== nestedDropdown) {
+                      d.classList.remove('active');
+                    }
+                  });
+                }
+                
+                // Toggle nested dropdown
+                nestedDropdown.classList.toggle('active');
+                return false;
+              }
+              
+              // Handle parent dropdowns (like "All Test")
+              const dropdownLink = clickedElement.closest('.dropdown > a');
+              if (dropdownLink) {
+                // Make sure we're not clicking inside a nested dropdown
+                const isInsideNested = clickedElement.closest('.dropdown .dropdown');
+                if (isInsideNested) {
+                  return; // Let nested dropdown handler take care of it
+                }
+                
+                e.preventDefault();
+                e.stopPropagation();
+                const dropdown = dropdownLink.parentElement;
+                
+                // Close other parent dropdowns (not nested ones inside this dropdown)
+                navbar.querySelectorAll('.dropdown').forEach(function(d) {
+                  // Only close if it's a direct child of navbar (parent dropdown)
+                  // and not the current dropdown or a child of current dropdown
+                  const isDirectChild = d.parentElement === navbar || d.parentElement.closest('#navbar > ul') !== null;
+                  const isChildOfCurrent = dropdown.contains(d);
+                  
+                  if (d !== dropdown && isDirectChild && !isChildOfCurrent) {
+                    d.classList.remove('active');
+                    // Also close all nested dropdowns inside closed parent
+                    d.querySelectorAll('.dropdown').forEach(function(nd) {
+                      nd.classList.remove('active');
+                    });
+                  }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                return false;
+              }
+            }
+          }, true); // Use capture phase
+          
+          // Close on outside click (but not when clicking dropdown items)
           document.addEventListener('click', function(e) {
             if (navbar.classList.contains('navbar-mobile')) {
+              const clickedElement = e.target;
+              const isDropdownToggle = clickedElement.closest('.dropdown > a');
+              const isNestedDropdownToggle = clickedElement.closest('.dropdown .dropdown > a');
+              const isDropdownItem = clickedElement.closest('.dropdown > ul');
+              const isNestedDropdownItem = clickedElement.closest('.dropdown .dropdown > ul');
+              
+              // Don't close if clicking on dropdown toggle or inside dropdown menu (including nested)
+              if (isDropdownToggle || isNestedDropdownToggle || isDropdownItem || isNestedDropdownItem) {
+                return;
+              }
+              
               if (!navbar.contains(e.target) && !toggle.contains(e.target)) {
                 navbar.classList.remove('navbar-mobile');
                 navbar.style.right = '-100%';

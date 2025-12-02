@@ -12,8 +12,9 @@
     // Only ensure visibility for active/hovered dropdowns
     const dropdowns = navbar.querySelectorAll('.dropdown');
     dropdowns.forEach(function(dropdown) {
-      const menu = dropdown.querySelector('> ul');
-      if (menu) {
+      // Fix: querySelector doesn't support > selector, use children instead
+      const menu = dropdown.querySelector('ul');
+      if (menu && dropdown.children.length > 0 && dropdown.children[0].nextElementSibling === menu) {
         const isMobile = window.innerWidth <= 992;
         const isActive = dropdown.classList.contains('active');
         const isHovered = dropdown.matches(':hover');
@@ -21,7 +22,7 @@
         // On desktop: only show on hover
         // On mobile: only show when active
         if ((!isMobile && isHovered) || (isMobile && isActive)) {
-          const dropdownItems = menu.querySelectorAll('> li > a');
+          const dropdownItems = menu.querySelectorAll('li > a');
           dropdownItems.forEach(function(item) {
             item.style.display = 'block';
             item.style.visibility = 'visible';

@@ -2232,6 +2232,18 @@ section {
     align-items: center;
     justify-content: space-between;
     font-size: 16px;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 10001 !important;
+    position: relative !important;
+  }
+  
+  /* Ensure dropdown links are clickable */
+  #navbar .dropdown > a {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 10001 !important;
+    position: relative !important;
   }
   
   #navbar > ul > li > a:hover,
