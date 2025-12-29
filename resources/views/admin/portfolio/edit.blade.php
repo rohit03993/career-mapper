@@ -50,7 +50,10 @@
                 @if($portfolioItem->image)
                     <div class="mt-2">
                         <p>Current Image:</p>
-                        <img src="{{ asset('storage/' . $portfolioItem->image) }}" alt="{{ $portfolioItem->title }}" 
+                        @php
+                            $imageUrl = (strpos($portfolioItem->image, 'http') === 0) ? $portfolioItem->image : asset('storage/' . $portfolioItem->image);
+                        @endphp
+                        <img src="{{ $imageUrl }}" alt="{{ $portfolioItem->title }}" 
                              class="img-thumbnail" style="max-width: 200px;">
                     </div>
                 @endif
@@ -67,7 +70,10 @@
                 @if($portfolioItem->thumbnail)
                     <div class="mt-2">
                         <p>Current Thumbnail:</p>
-                        <img src="{{ asset('storage/' . $portfolioItem->thumbnail) }}" alt="{{ $portfolioItem->title }}" 
+                        @php
+                            $thumbnailUrl = (strpos($portfolioItem->thumbnail, 'http') === 0) ? $portfolioItem->thumbnail : asset('storage/' . $portfolioItem->thumbnail);
+                        @endphp
+                        <img src="{{ $thumbnailUrl }}" alt="{{ $portfolioItem->title }}" 
                              class="img-thumbnail" style="max-width: 150px;">
                     </div>
                 @endif

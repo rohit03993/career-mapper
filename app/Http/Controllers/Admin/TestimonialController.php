@@ -82,9 +82,11 @@ class TestimonialController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($testimonial->image && Storage::disk('public')->exists($testimonial->image)) {
-                Storage::disk('public')->delete($testimonial->image);
+            // Delete old image if exists (only for local storage, not external URLs)
+            if ($testimonial->image && !str_starts_with($testimonial->image, 'http')) {
+                if (Storage::disk('public')->exists($testimonial->image)) {
+                    Storage::disk('public')->delete($testimonial->image);
+                }
             }
             $imagePath = $request->file('image')->store('testimonials', 'public');
             $validated['image'] = $imagePath;
@@ -107,9 +109,11 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
         
-        // Delete image if exists
-        if ($testimonial->image && Storage::disk('public')->exists($testimonial->image)) {
-            Storage::disk('public')->delete($testimonial->image);
+        // Delete image if exists (only for local storage, not external URLs)
+        if ($testimonial->image && !str_starts_with($testimonial->image, 'http')) {
+            if (Storage::disk('public')->exists($testimonial->image)) {
+                Storage::disk('public')->delete($testimonial->image);
+            }
         }
         
         $testimonial->delete();
