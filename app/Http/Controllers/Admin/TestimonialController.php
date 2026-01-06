@@ -85,7 +85,7 @@ class TestimonialController extends Controller
             // Delete old image if exists (only for local storage, not external URLs)
             if ($testimonial->image && !str_starts_with($testimonial->image, 'http')) {
                 if (Storage::disk('public')->exists($testimonial->image)) {
-                    Storage::disk('public')->delete($testimonial->image);
+                Storage::disk('public')->delete($testimonial->image);
                 }
             }
             $imagePath = $request->file('image')->store('testimonials', 'public');
@@ -112,7 +112,7 @@ class TestimonialController extends Controller
         // Delete image if exists (only for local storage, not external URLs)
         if ($testimonial->image && !str_starts_with($testimonial->image, 'http')) {
             if (Storage::disk('public')->exists($testimonial->image)) {
-                Storage::disk('public')->delete($testimonial->image);
+            Storage::disk('public')->delete($testimonial->image);
             }
         }
         

@@ -93,7 +93,7 @@ class TeamMemberController extends Controller
             // Delete old image if exists (only for local storage, not external URLs)
             if ($teamMember->image && !str_starts_with($teamMember->image, 'http')) {
                 if (Storage::disk('public')->exists($teamMember->image)) {
-                    Storage::disk('public')->delete($teamMember->image);
+                Storage::disk('public')->delete($teamMember->image);
                 }
             }
             $imagePath = $request->file('image')->store('team', 'public');
@@ -120,7 +120,7 @@ class TeamMemberController extends Controller
         // Delete image if exists (only for local storage, not external URLs)
         if ($teamMember->image && !str_starts_with($teamMember->image, 'http')) {
             if (Storage::disk('public')->exists($teamMember->image)) {
-                Storage::disk('public')->delete($teamMember->image);
+            Storage::disk('public')->delete($teamMember->image);
             }
         }
         

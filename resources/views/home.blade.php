@@ -12,27 +12,33 @@
                 <h1>Discover Your Perfect Career.</h1>
                 <h2>Make smart decisions with our career guidance and expert counsellors</h2>
                 <div class="d-flex justify-content-center justify-content-lg-start flex-wrap">
-                    <div class="card">
-                        <div class="card-logo">
-                            <div class="logo-badge">CM</div>
+                    <a href="{{ route('grade-pages.show', 'class-8-9') }}" class="card-link">
+                        <div class="card">
+                            <div class="card-logo">
+                                <div class="logo-badge">CM</div>
+                            </div>
+                            <i class="ri-book-open-line"></i>
+                            <p>Class 8-9</p>
                         </div>
-                        <i class="ri-book-open-line"></i>
-                        <p>Class 8-9</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-logo">
-                            <div class="logo-badge">CM</div>
+                    </a>
+                    <a href="{{ route('grade-pages.show', 'class-10-12') }}" class="card-link">
+                        <div class="card">
+                            <div class="card-logo">
+                                <div class="logo-badge">CM</div>
+                            </div>
+                            <i class="ri-bar-chart-line"></i>
+                            <p>Class 10-12</p>
                         </div>
-                        <i class="ri-bar-chart-line"></i>
-                        <p>Class 10-12</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-logo">
-                            <div class="logo-badge">CM</div>
+                    </a>
+                    <a href="{{ route('grade-pages.show', 'college-graduates') }}" class="card-link">
+                        <div class="card">
+                            <div class="card-logo">
+                                <div class="logo-badge">CM</div>
+                            </div>
+                            <i class="ri-calendar-line"></i>
+                            <p>College and Graduates</p>
                         </div>
-                        <i class="ri-calendar-line"></i>
-                        <p>College and Graduates</p>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -401,60 +407,78 @@
                         }
                     @endphp
                     <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch {{ $marginClass }}" data-aos="zoom-in" data-aos-delay="{{ ($index % 4 + 1) * 100 }}">
-                        <div class="icon-box">
-                            <div class="icon"><i class="{{ $item['icon'] ?? 'bx bx-layer' }}"></i></div>
-                            <h4><a href="{{ $itemLink }}">{{ $item['title'] ?? '' }}</a></h4>
-                        </div>
+                        <a href="{{ $itemLink }}" class="service-card-link">
+                            <div class="icon-box">
+                                <div class="icon"><i class="{{ $item['icon'] ?? 'bx bx-layer' }}"></i></div>
+                                <h4>{{ $item['title'] ?? '' }}</h4>
+                            </div>
+                        </a>
                     </div>
                 @endforeach
             @else
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'aptitude-mappers') }}">Aptitude Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'aptitude-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4>Aptitude Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-file"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'achievement-mappers') }}">Achievement Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'achievement-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-file"></i></div>
+                            <h4>Achievement Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-tachometer"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'attitude-mappers') }}">Attitude Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'attitude-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4>Attitude Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'aspiration-mappers') }}">Aspiration Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'aspiration-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4>Aspiration Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'aggression-mappers') }}">Aggression Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'aggression-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4>Aggression Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'career-related-mappers') }}">Career Related Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'career-related-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4>Career Related Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 col-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="{{ route('test-pages.show', 'educational-mappers') }}">Educational Mappers</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.show', 'educational-mappers') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4>Educational Mappers</h4>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bx-layer"></i></div>
-                        <h4><a href="{{ route('test-pages.index') }}">All Test Here</a></h4>
-                    </div>
+                    <a href="{{ route('test-pages.index') }}" class="service-card-link">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-layer"></i></div>
+                            <h4>All Test Here</h4>
+                        </div>
+                    </a>
                 </div>
             @endif
         </div>
@@ -902,33 +926,40 @@
         <div class="row">
             <div class="col-lg-5 d-flex align-items-stretch">
                 <div class="info">
-                    @if(isset($contactInfo) && $contactInfo->location)
-                        <div class="address">
-                            <i class="bi bi-geo-alt"></i>
-                            <h4>Location:</h4>
-                            <p>{{ $contactInfo->location }}</p>
-                        </div>
-                    @else
-                        <div class="address">
-                            <i class="bi bi-geo-alt"></i>
-                            <h4>Location:</h4>
-                            <p>A, 25/39, Middle Circle, Near Me A, Behind Marina Hotel, Block G, Connaught Place, New Delhi, Delhi 110001</p>
-                        </div>
-                    @endif
+                    @php
+                        // Get all centers that have addresses
+                        $centers = [];
+                        if(isset($contactInfo)) {
+                            if(!empty($contactInfo->center_1)) $centers[] = ['name' => 'Center 1', 'address' => $contactInfo->center_1];
+                            if(!empty($contactInfo->center_2)) $centers[] = ['name' => 'Center 2', 'address' => $contactInfo->center_2];
+                            if(!empty($contactInfo->center_3)) $centers[] = ['name' => 'Center 3', 'address' => $contactInfo->center_3];
+                            if(!empty($contactInfo->center_4)) $centers[] = ['name' => 'Center 4', 'address' => $contactInfo->center_4];
+                        }
+                        
+                        // Fallback to legacy location/office_address if no centers are set
+                        if(empty($centers)) {
+                            if(isset($contactInfo) && $contactInfo->location) {
+                                $centers[] = ['name' => 'Location', 'address' => $contactInfo->location];
+                            }
+                            if(isset($contactInfo) && $contactInfo->office_address) {
+                                $centers[] = ['name' => 'Office Address', 'address' => $contactInfo->office_address];
+                            }
+                        }
+                        
+                        // Default fallback if nothing is set
+                        if(empty($centers)) {
+                            $centers[] = ['name' => 'Location', 'address' => 'A, 25/39, Middle Circle, Near Me A, Behind Marina Hotel, Block G, Connaught Place, New Delhi, Delhi 110001'];
+                            $centers[] = ['name' => 'Office Address', 'address' => 'Raj Bharti House, Bhagwanpur, BHU, Varanasi -221005 U.P'];
+                        }
+                    @endphp
                     
-                    @if(isset($contactInfo) && $contactInfo->office_address)
-                        <div class="address mt-4">
-                            <i class="bi bi-building"></i>
-                            <h4>Office Address:</h4>
-                            <p>{{ $contactInfo->office_address }}</p>
+                    @foreach($centers as $index => $center)
+                        <div class="address {{ $index > 0 ? 'mt-4' : '' }}">
+                            <i class="bi bi-geo-alt"></i>
+                            <h4>{{ $center['name'] }}:</h4>
+                            <p>{{ $center['address'] }}</p>
                         </div>
-                    @else
-                        <div class="address mt-4">
-                            <i class="bi bi-building"></i>
-                            <h4>Office Address:</h4>
-                            <p>Raj Bharti House, Bhagwanpur, BHU, Varanasi -221005 U.P</p>
-                        </div>
-                    @endif
+                    @endforeach
                     
                     <div class="email mt-4">
                         <i class="bi bi-envelope"></i>

@@ -108,7 +108,7 @@ class PortfolioController extends Controller
             // Delete old image if exists (only for local storage, not external URLs)
             if ($portfolioItem->image && !str_starts_with($portfolioItem->image, 'http')) {
                 if (Storage::disk('public')->exists($portfolioItem->image)) {
-                    Storage::disk('public')->delete($portfolioItem->image);
+                Storage::disk('public')->delete($portfolioItem->image);
                 }
             }
             
@@ -123,7 +123,7 @@ class PortfolioController extends Controller
             // Delete old thumbnail if exists (only for local storage, not external URLs)
             if ($portfolioItem->thumbnail && !str_starts_with($portfolioItem->thumbnail, 'http')) {
                 if (Storage::disk('public')->exists($portfolioItem->thumbnail)) {
-                    Storage::disk('public')->delete($portfolioItem->thumbnail);
+                Storage::disk('public')->delete($portfolioItem->thumbnail);
                 }
             }
             
@@ -151,12 +151,12 @@ class PortfolioController extends Controller
         // Delete images if exists (only for local storage, not external URLs)
         if ($portfolioItem->image && !str_starts_with($portfolioItem->image, 'http')) {
             if (Storage::disk('public')->exists($portfolioItem->image)) {
-                Storage::disk('public')->delete($portfolioItem->image);
+            Storage::disk('public')->delete($portfolioItem->image);
             }
         }
         if ($portfolioItem->thumbnail && !str_starts_with($portfolioItem->thumbnail, 'http') && $portfolioItem->thumbnail !== $portfolioItem->image) {
             if (Storage::disk('public')->exists($portfolioItem->thumbnail)) {
-                Storage::disk('public')->delete($portfolioItem->thumbnail);
+            Storage::disk('public')->delete($portfolioItem->thumbnail);
             }
         }
         

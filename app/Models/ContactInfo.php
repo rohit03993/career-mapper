@@ -8,6 +8,10 @@ class ContactInfo extends Model
 {
     protected $fillable = [
         'location',
+        'center_1',
+        'center_2',
+        'center_3',
+        'center_4',
         'office_address',
         'email',
         'phone',

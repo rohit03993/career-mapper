@@ -17,6 +17,11 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/tests', [\App\Http\Controllers\TestPageController::class, 'index'])->name('test-pages.index');
 Route::get('/test/{slug}', [\App\Http\Controllers\TestPageController::class, 'show'])->name('test-pages.show');
 
+// Grade Pages Routes (Class 8-9, Class 10-12, College and Graduates)
+Route::get('/grade/{slug}', function($slug) {
+    return view('grade-pages.show', ['slug' => $slug]);
+})->name('grade-pages.show');
+
 // Test Booking Routes
 Route::post('/test-bookings', [\App\Http\Controllers\TestBookingController::class, 'store'])->name('test-bookings.store');
 

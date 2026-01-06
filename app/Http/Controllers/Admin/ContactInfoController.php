@@ -37,6 +37,10 @@ class ContactInfoController extends Controller
     {
         $validated = $request->validate([
             'location' => 'nullable|string',
+            'center_1' => 'nullable|string',
+            'center_2' => 'nullable|string',
+            'center_3' => 'nullable|string',
+            'center_4' => 'nullable|string',
             'office_address' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable|string|max:255',
