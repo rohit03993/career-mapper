@@ -1271,6 +1271,69 @@ section {
   color: var(--yellow-accent);
 }
 
+/* Grade Pages Styles */
+#grade-hero {
+  position: relative;
+}
+
+#grade-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 70% 50%, rgba(255,215,0,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.feature-links-bar a {
+  position: relative;
+}
+
+.feature-links-bar a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--yellow-accent);
+  transition: width 0.3s ease;
+}
+
+.feature-links-bar a:hover {
+  color: var(--yellow-accent);
+}
+
+.feature-links-bar a:hover::after {
+  width: 100%;
+}
+
+.feature-card {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--yellow-accent) !important;
+  box-shadow: 0 10px 35px rgba(255,215,0,0.2) !important;
+}
+
+.feature-card .feature-icon i {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon i {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.get-started-btn:hover {
+  background: var(--yellow-button) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+}
+
 /* Portfolio Section */
 #portfolio {
   background: #fff;

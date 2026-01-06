@@ -18,9 +18,7 @@ Route::get('/tests', [\App\Http\Controllers\TestPageController::class, 'index'])
 Route::get('/test/{slug}', [\App\Http\Controllers\TestPageController::class, 'show'])->name('test-pages.show');
 
 // Grade Pages Routes (Class 8-9, Class 10-12, College and Graduates)
-Route::get('/grade/{slug}', function($slug) {
-    return view('grade-pages.show', ['slug' => $slug]);
-})->name('grade-pages.show');
+Route::get('/grade/{slug}', [\App\Http\Controllers\GradePageController::class, 'show'])->name('grade-pages.show');
 
 // Test Booking Routes
 Route::post('/test-bookings', [\App\Http\Controllers\TestBookingController::class, 'store'])->name('test-bookings.store');
@@ -118,5 +116,10 @@ Route::prefix('admin')->group(function () {
             Route::get('/test-pages', [\App\Http\Controllers\Admin\TestPageController::class, 'index'])->name('admin.test-pages.index');
             Route::get('/test-pages/{id}/edit', [\App\Http\Controllers\Admin\TestPageController::class, 'edit'])->name('admin.test-pages.edit');
             Route::put('/test-pages/{id}', [\App\Http\Controllers\Admin\TestPageController::class, 'update'])->name('admin.test-pages.update');
+
+            // Grade Pages Routes
+            Route::get('/grade-pages', [\App\Http\Controllers\Admin\GradePageController::class, 'index'])->name('admin.grade-pages.index');
+            Route::get('/grade-pages/{id}/edit', [\App\Http\Controllers\Admin\GradePageController::class, 'edit'])->name('admin.grade-pages.edit');
+            Route::put('/grade-pages/{id}', [\App\Http\Controllers\Admin\GradePageController::class, 'update'])->name('admin.grade-pages.update');
     });
 });

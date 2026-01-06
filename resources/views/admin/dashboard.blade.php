@@ -96,5 +96,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-book"></i> Grade Pages</h5>
+                    <p class="card-text">Manage Class 8-9, 10-12, and College pages</p>
+                    <a href="{{ route('admin.grade-pages.index') }}" class="btn btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
 </div>
 @endsection
