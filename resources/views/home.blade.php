@@ -996,7 +996,7 @@
                     <div class="form-group">
                         <label for="contact_number">Contact Number <span class="text-danger">*</span></label>
                         <div class="input-group">
-                            <span class="input-group-text" style="background: var(--yellow-accent); color: var(--dark-bg); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px;">+91</span>
+                            <span class="input-group-text" style="background: var(--primary-color); color: var(--text-on-primary); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px;">+91</span>
                             <input type="tel" class="form-control @error('contact_number') is-invalid @enderror contact-number-input" id="contact_number" name="contact_number" value="{{ old('contact_number') }}" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[6-9]\d{9}" required style="border-radius: 0 8px 8px 0; border: 2px solid #e0e0e0; border-left: none;">
                         </div>
                         <small class="form-text text-muted">Format: +91 followed by 10 digits (starting with 6-9)</small>

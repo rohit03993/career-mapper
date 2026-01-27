@@ -1,3 +1,6 @@
+@php
+    $footerContact = \App\Models\ContactInfo::where('is_active', true)->first();
+@endphp
 <footer id="footer">
     <div class="footer-top">
         <div class="container">
@@ -5,10 +8,25 @@
                 <div class="col-lg-3 col-md-6 footer-contact">
                     <h3>Career Mapper</h3>
                     <p>
-                        <strong>Address:</strong> A, 25/39, Middle Circle, Near Me A, Behind Marina Hotel, Block G, Connaught Place, New Delhi, Delhi 110001<br>
-                        <strong>Office Address:</strong> Raj Bharti House, Bhagwanpur, BHU, Varanasi -221005 U.P<br>
-                        <strong>Phone:</strong> <a href="tel:+916396292221">+91 6396292221</a><br>
-                        <strong>Email:</strong> <a href="mailto:careermappers4u@gmail.com">careermappers4u@gmail.com</a><br>
+                        @if($footerContact)
+                            @if(!empty($footerContact->location))
+                                <strong>Address:</strong> {{ $footerContact->location }}<br>
+                            @endif
+                            @if(!empty($footerContact->office_address))
+                                <strong>Office Address:</strong> {{ $footerContact->office_address }}<br>
+                            @endif
+                            @if(!empty($footerContact->phone))
+                                <strong>Phone:</strong> <a href="tel:{{ preg_replace('/\s+/', '', $footerContact->phone) }}">{{ $footerContact->phone }}</a><br>
+                            @endif
+                            @if(!empty($footerContact->email))
+                                <strong>Email:</strong> <a href="mailto:{{ $footerContact->email }}">{{ $footerContact->email }}</a><br>
+                            @endif
+                            @if(empty($footerContact->location) && empty($footerContact->office_address) && empty($footerContact->phone) && empty($footerContact->email))
+                                <span class="text-muted">Contact information not set.</span>
+                            @endif
+                        @else
+                            <span class="text-muted">Contact information not set.</span>
+                        @endif
                     </p>
                 </div>
 

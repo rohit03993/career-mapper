@@ -8,6 +8,8 @@
     </a>
 </div>
 
+<p class="text-muted mb-3">Update the contact details shown in the <strong>footer</strong> and <strong>Contact Us</strong> section. Changes apply site-wide.</p>
+
 <form action="{{ route('admin.contact.update') }}" method="POST">
     @csrf
     @method('PUT')
@@ -15,16 +17,16 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="mb-3">
-                <label for="location" class="form-label">Location Address (Legacy - Optional)</label>
+                <label for="location" class="form-label">Address</label>
                 <textarea class="form-control @error('location') is-invalid @enderror" 
-                          id="location" name="location" rows="2">{{ old('location', $contactInfo->location ?? '') }}</textarea>
-                <small class="form-text text-muted">Old location field (can be left empty if using centers below)</small>
+                          id="location" name="location" rows="2" placeholder="e.g. Main office address">{{ old('location', $contactInfo->location ?? '') }}</textarea>
+                <small class="form-text text-muted">Shown as "Address" in footer and contact section. Leave empty if using Centers below.</small>
                 @error('location')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
-            <h5 class="mt-4 mb-3">Centers (Leave empty if not needed - only filled centers will be displayed)</h5>
+            <h5 class="mt-4 mb-3">Centers (optional — only filled centers appear on the contact page)</h5>
             
             <div class="mb-3">
                 <label for="center_1" class="form-label">Center 1 Address</label>
@@ -67,10 +69,10 @@
             </div>
 
             <div class="mb-3">
-                <label for="office_address" class="form-label">Office Address (Legacy - Optional)</label>
+                <label for="office_address" class="form-label">Office Address</label>
                 <textarea class="form-control @error('office_address') is-invalid @enderror" 
-                          id="office_address" name="office_address" rows="2">{{ old('office_address', $contactInfo->office_address ?? '') }}</textarea>
-                <small class="form-text text-muted">Old office address field (can be left empty if using centers above)</small>
+                          id="office_address" name="office_address" rows="2" placeholder="e.g. Branch or secondary address">{{ old('office_address', $contactInfo->office_address ?? '') }}</textarea>
+                <small class="form-text text-muted">Shown as "Office Address" in footer and contact section. Leave empty if not needed.</small>
                 @error('office_address')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -79,7 +81,8 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                       id="email" name="email" value="{{ old('email', $contactInfo->email ?? '') }}">
+                       id="email" name="email" value="{{ old('email', $contactInfo->email ?? '') }}" placeholder="e.g. contact@example.com">
+                <small class="form-text text-muted">Shown in footer, contact section, and header.</small>
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -89,11 +92,10 @@
                 <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('phone') is-invalid @enderror" 
                        id="phone" name="phone" value="{{ old('phone', $contactInfo->phone ?? '') }}"
-                       placeholder="e.g., +916396292221 or +91 6396292221"
+                       placeholder="e.g. +91 6396292221"
                        required>
                 <small class="form-text text-muted">
-                    <i class="bi bi-info-circle"></i> This phone number is used in the "Call Now" button in the website header. 
-                    Format: Include country code (e.g., +91 for India) followed by the phone number.
+                    <i class="bi bi-info-circle"></i> Used in the "Call Now" button (header), footer, and contact section. Include country code (e.g. +91).
                 </small>
                 @error('phone')
                     <div class="invalid-feedback">{{ $message }}</div>
