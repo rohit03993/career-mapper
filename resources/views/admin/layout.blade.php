@@ -84,6 +84,13 @@
                     <a href="{{ route('admin.test-bookings.index') }}" class="{{ request()->routeIs('admin.test-bookings.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-check"></i> Test Bookings
                     </a>
+                    <a href="{{ route('admin.grade-pages.index') }}" class="{{ request()->routeIs('admin.grade-pages.*') ? 'active' : '' }}">
+                        <i class="bi bi-mortarboard"></i> Grade Pages
+                    </a>
+                    <hr class="my-2 mx-3 border-secondary">
+                    <a href="{{ route('admin.theme.index') }}" class="{{ request()->routeIs('admin.theme.*') ? 'active' : '' }}">
+                        <i class="bi bi-palette"></i> Theme Settings
+                    </a>
                     <a href="{{ route('home') }}" target="_blank">
                         <i class="bi bi-house"></i> View Website
                     </a>
@@ -117,5 +124,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 </html>

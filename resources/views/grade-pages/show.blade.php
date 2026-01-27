@@ -39,7 +39,7 @@
                 <p style="color: #e0e0e0; font-size: 1.3rem; line-height: 1.8; margin-bottom: 40px;">
                     {{ $gradePage->hero_subtitle }}
                 </p>
-                <a href="#apply-form" class="get-started-btn" style="background: var(--yellow-accent); color: var(--dark-bg); padding: 18px 45px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s; border: 2px solid var(--yellow-accent);">
+                <a href="#apply-form" class="get-started-btn" style="background: var(--primary-color); color: var(--text-on-primary); padding: 18px 45px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s; border: 2px solid var(--primary-color);">
                     {{ $buttonText }}
                 </a>
             </div>
@@ -88,14 +88,14 @@
                                      style="max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: cover; border-radius: 0;"
                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                                 @if(isset($feature['icon']) && !empty($feature['icon']))
-                                    <i class="{{ $feature['icon'] }}" style="font-size: 5rem; color: var(--yellow-accent); display: none; position: absolute;"></i>
+                                    <i class="{{ $feature['icon'] }}" style="font-size: 5rem; color: var(--primary-color); display: none; position: absolute;"></i>
                                 @else
-                                    <i class="ri-book-open-line" style="font-size: 5rem; color: var(--yellow-accent); display: none; position: absolute;"></i>
+                                    <i class="ri-book-open-line" style="font-size: 5rem; color: var(--primary-color); display: none; position: absolute;"></i>
                                 @endif
                             @elseif(isset($feature['icon']) && !empty($feature['icon']))
-                                <i class="{{ $feature['icon'] }}" style="font-size: 5rem; color: var(--yellow-accent);"></i>
+                                <i class="{{ $feature['icon'] }}" style="font-size: 5rem; color: var(--primary-color);"></i>
                             @else
-                                <i class="ri-book-open-line" style="font-size: 5rem; color: var(--yellow-accent);"></i>
+                                <i class="ri-book-open-line" style="font-size: 5rem; color: var(--primary-color);"></i>
                             @endif
                         </div>
                         <div class="feature-content" style="padding: 35px 30px; flex: 1; display: flex; flex-direction: column;">
@@ -164,11 +164,11 @@
                                 Contact Number <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-group-text" style="background: var(--yellow-accent); color: var(--dark-bg); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px; padding: 12px 15px;">+91</span>
+                                <span class="input-group-text" style="background: var(--primary-color); color: var(--text-on-primary); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px; padding: 12px 15px;">+91</span>
                                 <input type="tel" class="form-control @error('contact_number') is-invalid @enderror contact-number-input" 
                                        id="contact_number" name="contact_number" value="{{ old('contact_number') }}" 
                                        placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[6-9]\d{9}" required 
-                                       style="border-radius: 0 8px 8px 0; border: 2px solid #e0e0e0; border-left: none; padding: 12px 15px; font-size: 1rem;">
+                                       style="border-radius: 0 8px 8px 0; border: 2px solid #e0e0e0; border-left: none; padding: 12px 15px; font-size: 1rem; color: #333;">
                             </div>
                             <small class="form-text text-muted" style="margin-top: 5px; display: block;">Format: +91 followed by 10 digits (starting with 6-9)</small>
                             @error('contact_number')
@@ -187,7 +187,7 @@
                         
                         <div class="text-center">
                             <button type="submit" class="get-started-btn" 
-                                    style="background: var(--yellow-accent); color: var(--dark-bg); padding: 18px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--yellow-accent); cursor: pointer; transition: all 0.3s;">
+                                    style="background: var(--primary-color); color: var(--text-on-primary); padding: 18px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--primary-color); cursor: pointer; transition: all 0.3s;">
                                 Submit Application
                             </button>
                         </div>
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.feature-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px)';
-            this.style.borderColor = 'var(--yellow-accent)';
+            this.style.borderColor = 'var(--primary-color)';
             this.style.boxShadow = '0 15px 50px rgba(255,215,0,0.25)';
         });
         card.addEventListener('mouseleave', function() {

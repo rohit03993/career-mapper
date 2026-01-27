@@ -26,6 +26,16 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     
+    <!-- Dynamic Theme Variables -->
+    @php
+        $themeSettings = \App\Models\ThemeSetting::getActive();
+    @endphp
+    @if($themeSettings)
+    <style id="dynamic-theme-vars">
+        {!! $themeSettings->generateCss() !!}
+    </style>
+    @endif
+    
     <!-- Critical Mobile Menu Styles - Inline to ensure they load first -->
     <style>
       /* Force mobile toggle visibility on mobile - ALWAYS VISIBLE */

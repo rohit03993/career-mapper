@@ -121,5 +121,14 @@ Route::prefix('admin')->group(function () {
             Route::get('/grade-pages', [\App\Http\Controllers\Admin\GradePageController::class, 'index'])->name('admin.grade-pages.index');
             Route::get('/grade-pages/{id}/edit', [\App\Http\Controllers\Admin\GradePageController::class, 'edit'])->name('admin.grade-pages.edit');
             Route::put('/grade-pages/{id}', [\App\Http\Controllers\Admin\GradePageController::class, 'update'])->name('admin.grade-pages.update');
+
+            // Theme Settings Routes
+            Route::get('/theme', [\App\Http\Controllers\Admin\ThemeController::class, 'index'])->name('admin.theme.index');
+            Route::put('/theme', [\App\Http\Controllers\Admin\ThemeController::class, 'update'])->name('admin.theme.update');
+            Route::post('/theme/preset', [\App\Http\Controllers\Admin\ThemeController::class, 'applyPreset'])->name('admin.theme.preset');
+            Route::post('/theme/reset', [\App\Http\Controllers\Admin\ThemeController::class, 'reset'])->name('admin.theme.reset');
+            Route::post('/theme/preview', [\App\Http\Controllers\Admin\ThemeController::class, 'preview'])->name('admin.theme.preview');
+            Route::post('/theme/logo', [\App\Http\Controllers\Admin\ThemeController::class, 'uploadLogo'])->name('admin.theme.logo.upload');
+            Route::delete('/theme/logo', [\App\Http\Controllers\Admin\ThemeController::class, 'removeLogo'])->name('admin.theme.logo.remove');
     });
 });

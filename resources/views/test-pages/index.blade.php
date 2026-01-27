@@ -27,8 +27,8 @@
                             @if($testPage->featured_image)
                                 <img src="{{ asset('storage/' . $testPage->featured_image) }}" class="card-img-top" alt="{{ $testPage->title }}" style="height: 200px; object-fit: cover;">
                             @else
-                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, var(--yellow-accent) 0%, var(--yellow-button) 100%);">
-                                    <i class="bi bi-clipboard-data" style="font-size: 4rem; color: var(--dark-bg);"></i>
+                                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--primary-color);">
+                                    <i class="bi bi-clipboard-data" style="font-size: 4rem; color: var(--text-on-primary);"></i>
                                 </div>
                             @endif
                             <div class="card-body d-flex flex-column">
@@ -37,10 +37,10 @@
                                     <p class="card-text flex-grow-1" style="color: #666; line-height: 1.6;">{{ Str::limit($testPage->short_description, 120) }}</p>
                                 @endif
                                 <div class="d-grid gap-2 mt-auto">
-                                    <a href="{{ route('test-pages.show', $testPage->slug) }}" class="btn btn-outline-warning" style="border-radius: 8px; font-weight: 600;">
+                                    <a href="{{ route('test-pages.show', $testPage->slug) }}" class="btn" style="border-radius: 8px; font-weight: 600; border: 2px solid var(--primary-color); color: var(--primary-color); background: transparent;">
                                         Learn More <i class="bi bi-arrow-right ms-2"></i>
                                     </a>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#bookTestModal{{ $testPage->id }}" style="border-radius: 8px; font-weight: 600;">
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#bookTestModal{{ $testPage->id }}" style="border-radius: 8px; font-weight: 600; background: var(--primary-color); color: var(--text-on-primary);">
                                         <i class="bi bi-calendar-check me-2"></i>Book Your Test
                                     </button>
                                 </div>
@@ -60,12 +60,12 @@
 </section>
 
 <!-- ======= CTA Section ======= -->
-<section class="contact" style="padding: 80px 0; background: var(--dark-bg);">
+<section class="contact" style="padding: 80px 0; background: var(--secondary-color);">
     <div class="container" data-aos="fade-up">
         <div class="section-title text-center">
-            <h2 class="text-white mb-4">Need Help Choosing the Right Test?</h2>
-            <p class="text-white-50 mb-5">Our career counselors are here to guide you</p>
-            <a href="{{ route('home') }}#contact" class="btn btn-warning btn-lg" style="border-radius: 8px; font-weight: 600; padding: 15px 40px;">
+            <h2 class="mb-4" style="color: var(--text-on-secondary);">Need Help Choosing the Right Test?</h2>
+            <p class="mb-5" style="color: var(--text-on-secondary); opacity: 0.7;">Our career counselors are here to guide you</p>
+            <a href="{{ route('home') }}#contact" class="btn btn-lg" style="border-radius: 8px; font-weight: 600; padding: 15px 40px; background: var(--primary-color); color: var(--text-on-primary);">
                 <i class="bi bi-envelope me-2"></i>Contact Us
             </a>
         </div>
@@ -77,47 +77,47 @@
 <!-- Book Test Modal for {{ $testPage->title }} -->
 <div class="modal fade" id="bookTestModal{{ $testPage->id }}" tabindex="-1" aria-labelledby="bookTestModalLabel{{ $testPage->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="border-radius: 15px; border: 2px solid var(--yellow-accent);">
-            <div class="modal-header" style="background: linear-gradient(135deg, var(--yellow-accent) 0%, var(--yellow-button) 100%); border-bottom: 2px solid var(--yellow-accent); border-radius: 13px 13px 0 0;">
-                <h5 class="modal-title" id="bookTestModalLabel{{ $testPage->id }}" style="color: var(--dark-bg); font-weight: 700;">
+        <div class="modal-content" style="border-radius: 15px; border: 2px solid var(--primary-color);">
+            <div class="modal-header" style="background: var(--primary-color); border-bottom: 2px solid var(--primary-color); border-radius: 13px 13px 0 0;">
+                <h5 class="modal-title" id="bookTestModalLabel{{ $testPage->id }}" style="color: var(--text-on-primary); font-weight: 700;">
                     <i class="bi bi-calendar-check me-2"></i>Book Your Test - {{ $testPage->title }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="padding: 30px;">
+            <div class="modal-body" style="padding: 30px; background: #fff;">
                 <form class="bookTestForm" method="POST" action="{{ route('test-bookings.store') }}" data-test-id="{{ $testPage->id }}">
                     @csrf
                     <input type="hidden" name="test_page_id" value="{{ $testPage->id }}">
                     
                     <div class="mb-3">
-                        <label for="name{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: var(--text-dark);">Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name{{ $testPage->id }}" name="name" value="{{ old('name') }}" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0;">
+                        <label for="name{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: #333;">Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name{{ $testPage->id }}" name="name" value="{{ old('name') }}" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0; color: #333;">
                     </div>
 
                     <div class="mb-3">
-                        <label for="contact_number{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: var(--text-dark);">Contact Number <span class="text-danger">*</span></label>
+                        <label for="contact_number{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: #333;">Contact Number <span class="text-danger">*</span></label>
                         <div class="input-group">
-                            <span class="input-group-text" style="background: var(--yellow-accent); color: var(--dark-bg); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px;">+91</span>
-                            <input type="tel" class="form-control contact-number-input" id="contact_number{{ $testPage->id }}" name="contact_number" value="{{ old('contact_number') }}" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[6-9]\d{9}" required style="border-radius: 0 8px 8px 0; padding: 12px; border: 2px solid #e0e0e0; border-left: none;">
+                            <span class="input-group-text" style="background: var(--primary-color); color: var(--text-on-primary); font-weight: 600; border: 2px solid #e0e0e0; border-right: none; border-radius: 8px 0 0 8px;">+91</span>
+                            <input type="tel" class="form-control contact-number-input" id="contact_number{{ $testPage->id }}" name="contact_number" value="{{ old('contact_number') }}" placeholder="Enter 10-digit mobile number" maxlength="10" pattern="[6-9]\d{9}" required style="border-radius: 0 8px 8px 0; padding: 12px; border: 2px solid #e0e0e0; border-left: none; color: #333;">
                         </div>
-                        <small class="form-text text-muted">Format: +91 followed by 10 digits (starting with 6-9)</small>
+                        <small class="form-text" style="color: #666;">Format: +91 followed by 10 digits (starting with 6-9)</small>
                         <div class="contact-number-error text-danger" style="display: none; font-size: 0.875rem; margin-top: 5px;"></div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: var(--text-dark);">Email Address <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email{{ $testPage->id }}" name="email" value="{{ old('email') }}" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0;">
+                        <label for="email{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: #333;">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email{{ $testPage->id }}" name="email" value="{{ old('email') }}" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0; color: #333;">
                     </div>
 
                     <div class="mb-3">
-                        <label for="message{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: var(--text-dark);">Message <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="message{{ $testPage->id }}" name="message" rows="4" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0; resize: vertical;">{{ old('message') }}</textarea>
+                        <label for="message{{ $testPage->id }}" class="form-label" style="font-weight: 600; color: #333;">Message <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="message{{ $testPage->id }}" name="message" rows="4" required style="border-radius: 8px; padding: 12px; border: 2px solid #e0e0e0; resize: vertical; color: #333;">{{ old('message') }}</textarea>
                     </div>
 
                     <div class="form-message alert" style="display: none; border-radius: 8px;"></div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-warning btn-lg submit-btn" style="border-radius: 8px; font-weight: 600; padding: 12px;">
+                        <button type="submit" class="btn btn-lg submit-btn" style="border-radius: 8px; font-weight: 600; padding: 12px; background: var(--primary-color); color: var(--text-on-primary);">
                             <span class="submit-btn-text"><i class="bi bi-send me-2"></i>Submit Booking Request</span>
                             <span class="submit-btn-loading" style="display: none;">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
