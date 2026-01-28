@@ -76,12 +76,32 @@
                         @endif
                     </ul>
                 </li>
+                <li class="dropdown"><a href="#"><span>Career Library</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        @php
+                            try {
+                                $allCareers = \App\Models\Career::where('is_active', true)->orderBy('order')->get();
+                            } catch (\Exception $e) {
+                                $allCareers = collect([]);
+                            }
+                        @endphp
+                        @if($allCareers->count() > 0)
+                            @foreach($allCareers as $career)
+                                <li><a href="{{ route('careers.show', $career->slug) }}">{{ $career->title }}</a></li>
+                            @endforeach
+                            <li><a href="{{ route('careers.index') }}"><strong>View All Careers</strong></a></li>
+                        @else
+                            <li><a href="{{ route('careers.index') }}">Career Library</a></li>
+                        @endif
+                    </ul>
+                </li>
                 <li><a class="nav-link scrollto" href="{{ route('home') }}#team">Team</a></li>
                 <li><a class="nav-link scrollto" href="{{ route('home') }}#contact">Contact</a></li>
             </ul>
         </nav>
-        <i class="bi bi-list mobile-nav-toggle" aria-label="Menu" data-mobile-toggle="true"></i>
-        <span class="mobile-nav-toggle-fallback" style="display: none;">☰</span>
+        <button type="button" class="mobile-nav-toggle" id="mobile-nav-toggle-btn" aria-label="Open menu" aria-expanded="false">
+            <span class="mobile-nav-toggle-icon" aria-hidden="true">☰</span>
+        </button>
         @php
             $contactInfo = \App\Models\ContactInfo::where('is_active', true)->first();
             $phoneNumber = $contactInfo && $contactInfo->phone ? $contactInfo->phone : '+916396292221';

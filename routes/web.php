@@ -17,6 +17,10 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/tests', [\App\Http\Controllers\TestPageController::class, 'index'])->name('test-pages.index');
 Route::get('/test/{slug}', [\App\Http\Controllers\TestPageController::class, 'show'])->name('test-pages.show');
 
+// Career Library Routes
+Route::get('/careers', [\App\Http\Controllers\CareerController::class, 'index'])->name('careers.index');
+Route::get('/career/{slug}', [\App\Http\Controllers\CareerController::class, 'show'])->name('careers.show');
+
 // Grade Pages Routes (Class 8-9, Class 10-12, College and Graduates)
 Route::get('/grade/{slug}', [\App\Http\Controllers\GradePageController::class, 'show'])->name('grade-pages.show');
 
@@ -121,6 +125,11 @@ Route::prefix('admin')->group(function () {
             Route::get('/grade-pages', [\App\Http\Controllers\Admin\GradePageController::class, 'index'])->name('admin.grade-pages.index');
             Route::get('/grade-pages/{id}/edit', [\App\Http\Controllers\Admin\GradePageController::class, 'edit'])->name('admin.grade-pages.edit');
             Route::put('/grade-pages/{id}', [\App\Http\Controllers\Admin\GradePageController::class, 'update'])->name('admin.grade-pages.update');
+
+            // Career Library Routes
+            Route::get('/careers', [\App\Http\Controllers\Admin\CareerController::class, 'index'])->name('admin.careers.index');
+            Route::get('/careers/{id}/edit', [\App\Http\Controllers\Admin\CareerController::class, 'edit'])->name('admin.careers.edit');
+            Route::put('/careers/{id}', [\App\Http\Controllers\Admin\CareerController::class, 'update'])->name('admin.careers.update');
 
             // Theme Settings Routes
             Route::get('/theme', [\App\Http\Controllers\Admin\ThemeController::class, 'index'])->name('admin.theme.index');

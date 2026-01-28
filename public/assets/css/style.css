@@ -152,36 +152,13 @@ a {
   /* Note: We'll handle this in the mobile media query below */
   
   .mobile-nav-toggle {
-    display: block !important;
+    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
     order: 2 !important;
     margin-left: auto !important;
     position: relative !important;
     z-index: 10002 !important;
-    font-size: 32px !important;
-    color: #fff !important;
-    cursor: pointer !important;
-    padding: 8px 12px !important;
-    line-height: 1 !important;
-    pointer-events: auto !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
-    text-align: center !important;
-  }
-  
-  .mobile-nav-toggle::before {
-    content: '☰' !important;
-    font-size: 32px !important;
-    display: inline-block !important;
-    color: #fff !important;
-    font-family: Arial, sans-serif !important;
-    line-height: 1 !important;
-  }
-  
-  /* Fallback if Bootstrap Icons don't load */
-  .mobile-nav-toggle-fallback {
-    display: none !important;
   }
 }
 
@@ -434,97 +411,52 @@ a {
   box-shadow: 0 5px 15px var(--primary-alpha-50, rgba(255,215,0,0.5));
 }
 
+/* Hamburger button: hidden on desktop, shown on mobile (see media queries + inline critical CSS) */
 .mobile-nav-toggle {
-  /* Hidden on desktop by default, shown on mobile via media queries */
   display: none;
-  color: #fff !important;
-  font-size: 32px !important;
-  cursor: pointer !important;
-  position: relative !important;
-  z-index: 10002 !important;
-  padding: 8px 12px !important;
-  transition: all 0.3s;
-  line-height: 1 !important;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  margin: 0;
   flex-shrink: 0;
-  width: auto !important;
-  height: auto !important;
-  min-width: 40px !important;
-  min-height: 40px !important;
-  text-align: center !important;
-  background: transparent !important;
-  border: none !important;
-  pointer-events: auto !important;
-  -webkit-tap-highlight-color: rgba(255,255,255,0.3);
-}
-
-/* Force show on mobile - must override base rule */
-@media (max-width: 992px) {
-  .mobile-nav-toggle {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    z-index: 10002 !important;
-  }
-}
-
-/* Fallback hamburger icon - always visible */
-.mobile-nav-toggle {
-  font-family: Arial, sans-serif !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  position: relative !important;
-  user-select: none !important;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  font: inherit;
+  -webkit-tap-highlight-color: rgba(255,255,255,0.2);
   touch-action: manipulation;
-}
-
-.mobile-nav-toggle::before {
-  content: '☰' !important;
-  font-size: 32px !important;
-  display: inline-block !important;
-  color: var(--text-light) !important;
-  font-family: Arial, sans-serif !important;
-  line-height: 1 !important;
-  vertical-align: middle !important;
-  pointer-events: none !important;
-}
-
-.mobile-nav-toggle.bi-list::before {
-  content: '☰' !important;
-}
-
-.mobile-nav-toggle.bi-x::before {
-  content: '✕' !important;
-  font-size: 28px !important;
-}
-
-/* Hide Bootstrap Icons if they load, use our fallback instead */
-.mobile-nav-toggle.bi-list,
-.mobile-nav-toggle.bi-x {
-  font-size: 0 !important;
-}
-
-.mobile-nav-toggle.bi-list::after,
-.mobile-nav-toggle.bi-x::after {
-  display: none !important;
+  user-select: none;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .mobile-nav-toggle:hover {
-  color: var(--yellow-accent) !important;
-  transform: scale(1.1);
+  color: var(--yellow-accent, #FFC107);
+  transform: scale(1.05);
 }
 
-.mobile-nav-toggle:hover::before {
-  color: var(--yellow-accent);
+.mobile-nav-toggle .mobile-nav-toggle-icon {
+  font-size: 28px;
+  line-height: 1;
+  font-family: Arial, sans-serif;
+  color: inherit;
 }
 
-.mobile-nav-toggle-fallback {
-  display: none;
+@media (max-width: 992px) {
+  .mobile-nav-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    order: 2;
+    margin-left: auto !important;
+    z-index: 10002;
+    position: relative;
+  }
 }
 
 /* ============================================
@@ -2424,31 +2356,13 @@ section {
     padding: 20px 15px;
   }
   
-  /* Mobile nav toggle is already shown via media query above */
-  /* Ensure it's visible and properly positioned */
   .mobile-nav-toggle {
-    display: block !important;
+    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
   
-  /* Add overlay when menu is open */
-  body.navbar-open::before {
-    content: '';
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 70px);
-    background: rgba(0,0,0,0.6);
-    z-index: 998;
-    animation: fadeIn 0.3s ease;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+  /* Overlay when menu is open: added via JS (#navbar-overlay) for click-to-close */
   
   /* Mobile navbar - clean and simple */
   #navbar {
@@ -2606,13 +2520,10 @@ section {
 }
 
 @media (max-width: 768px) {
-  /* Ensure mobile nav toggle is visible */
   .mobile-nav-toggle {
-    display: block !important;
+    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    position: relative !important;
-    z-index: 1002 !important;
   }
   
   /* Make sure header container shows the toggle */
@@ -2689,19 +2600,16 @@ section {
 }
 
 @media (max-width: 576px) {
-  /* Ensure mobile nav toggle is visible on small screens */
   .mobile-nav-toggle {
-    display: block !important;
+    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-size: 30px !important;
   }
   
-  .mobile-nav-toggle::before {
-    font-size: 30px !important;
+  .mobile-nav-toggle .mobile-nav-toggle-icon {
+    font-size: 26px !important;
   }
   
-  /* Ensure header and logo stay visible on scroll */
   #header {
     position: fixed !important;
     top: 0 !important;
@@ -2718,19 +2626,40 @@ section {
     visibility: visible !important;
   }
   
-  .mobile-nav-toggle {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
   #hero h1 {
     font-size: 2rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  #hero h2 {
+    font-size: 1rem;
+  }
+  
+  #hero .d-flex.flex-wrap {
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  #hero .card-link {
+    flex: 1 1 140px;
+    max-width: 100%;
   }
   
   /* Mobile general improvements */
   .container {
     padding-left: 15px;
     padding-right: 15px;
+  }
+  
+  #header .container {
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+  
+  #header .logo {
+    min-width: 0;
+    flex-shrink: 0;
   }
   
   section {
@@ -2793,38 +2722,14 @@ section {
   }
 }
 
-/* FINAL OVERRIDE - Ensure mobile toggle is always visible on mobile */
-/* This must be at the end to override everything */
+/* Ensure mobile hamburger is always visible on mobile */
 @media (max-width: 992px) {
-  .mobile-nav-toggle,
-  i.mobile-nav-toggle,
-  .bi.mobile-nav-toggle {
-    display: block !important;
+  .mobile-nav-toggle {
+    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    position: relative !important;
-    z-index: 1002 !important;
+    z-index: 10002 !important;
     pointer-events: auto !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .mobile-nav-toggle,
-  i.mobile-nav-toggle,
-  .bi.mobile-nav-toggle {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .mobile-nav-toggle,
-  i.mobile-nav-toggle,
-  .bi.mobile-nav-toggle {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
   }
 }
 

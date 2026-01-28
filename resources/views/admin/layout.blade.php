@@ -81,6 +81,9 @@
                     <a href="{{ route('admin.test-pages.index') }}" class="{{ request()->routeIs('admin.test-pages.*') ? 'active' : '' }}">
                         <i class="bi bi-file-earmark-text"></i> Test Pages
                     </a>
+                    <a href="{{ route('admin.careers.index') }}" class="{{ request()->routeIs('admin.careers.*') ? 'active' : '' }}">
+                        <i class="bi bi-journal-bookmark"></i> Career Library
+                    </a>
                     <a href="{{ route('admin.test-bookings.index') }}" class="{{ request()->routeIs('admin.test-bookings.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-check"></i> Test Bookings
                     </a>

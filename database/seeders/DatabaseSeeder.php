@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ContactInfoSeeder::class,
             WhyChooseUsSeeder::class,
             GradePageSeeder::class,
+            CareerSeeder::class,
         ]);
     }
 }
